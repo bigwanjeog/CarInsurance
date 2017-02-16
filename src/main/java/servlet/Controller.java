@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import tool.GetPseudo;
 import tool.SelectVoiture;
 
 /**
@@ -39,15 +40,18 @@ public class Controller extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-     Map comands = new HashMap();
+    Map comands = new HashMap();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String cmd = request.getParameter("page");
         String resultat = request.getParameter("resultat");
+        String requestPseudo = request.getParameter("request");
 
         if (resultat != null) {
             SelectVoiture.selectVoiture(resultat, request, response);
+        } else if (requestPseudo != null) {
+            GetPseudo.getPseudo(request, response);
         } else {
             IComand comand;
             HttpSession session = request.getSession();
@@ -56,6 +60,7 @@ public class Controller extends HttpServlet {
                 if (util == null) {
                     comand = (IComand) comands.get("home");
                 } else {
+                    session.removeAttribute("utilisateurTemp");
                     comand = (IComand) comands.get("dashboard");
                 }
             } else {

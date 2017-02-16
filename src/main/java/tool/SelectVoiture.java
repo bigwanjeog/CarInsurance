@@ -22,35 +22,25 @@ import webservice.JerseyVoiture;
  * @author RENAUD
  */
 public class SelectVoiture {
-    public static void selectVoiture(String resultat, HttpServletRequest request, HttpServletResponse response) throws IOException{
-        if(resultat.equals("constructeur")){
+
+    public static void selectVoiture(String resultat, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String json = "";
+        if (resultat.equals("constructeur")) {
             JerseyConstructeur jc = new JerseyConstructeur();
-            //List<Constructeur> constructeurs = jc.findAll();
-            
-            //String json = new Gson().toJson();
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(jc.findAll());
-            
-        } else if (resultat.equals("modele")){
+            json = jc.findAll();
+
+        } else if (resultat.equals("modele")) {
             JerseyModele jm = new JerseyModele();
             String idConstructeur = request.getParameter("modele");
-            //List<Modele> modeles = jm.findByManufacturer(idConstructeur);
-            
-            //String json = new Gson().toJson(modeles);
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(jm.findByManufacturer(idConstructeur));
-            
-        } else if (resultat.equals("voiture")){
+            json = jm.findByManufacturer(idConstructeur);
+
+        } else if (resultat.equals("voiture")) {
             JerseyVoiture jv = new JerseyVoiture();
             String idModele = request.getParameter("voiture");
-            //List<Voiture> voitures = jv.findByModele(idModele);
-            
-            //String json = new Gson().toJson(voitures);
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(jv.findByModele(idModele));
+            json = jv.findByModele(idModele);
         }
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);
     }
 }

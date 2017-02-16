@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package comand;
+package tool;
 
 import bean.Utilisateur;
+import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -14,21 +15,12 @@ import javax.servlet.http.HttpSession;
  *
  * @author RENAUD
  */
-public class CmdFormulaire implements IComand {
-
-
-    @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+public class GetPseudo {
+    public static void getPseudo (HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         Utilisateur util = (Utilisateur) session.getAttribute("utilisateur");
-        String status = request.getParameter("status");
-        
-        String url = "WEB-INF/dashboard.jsp";
-
-        if (status != null || util == null) {
-            url = "WEB-INF/formulaire.jsp";
-        }
-        return url;
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write("{\"pseudo\":\"" + util.getNom() + " " + util.getPrenom() + "\"}");
     }
-
 }

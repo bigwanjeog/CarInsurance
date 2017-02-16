@@ -13,7 +13,6 @@ $(document).ready(function () {
     if (cmd === "chat") {
         pageChat();
     }
-    //wsAds();
 });
 
 function goToTop() {
@@ -60,11 +59,13 @@ function pageChat() {
     webSocket.onmessage = function (event) {
         var tableChat = $("#tableChat tr:last");
         var date = getDate(new Date());
-
-        tableChat.after('<tr ><td class="pseudo">' + date + ' | test</td><td>' + event.data + '</td></tr>');
+        console.log(event.data);
+        var json = JSON.parse(event.data);
+        tableChat.after('<tr ><td class="pseudo">' + date + ' | ' + json.pseudo + '</td><td>' + json.msg + '</td></tr>');
         $("#chatDiv").scrollTop($("#chatDiv")[0].scrollHeight);
 
     };
+
 
     inputChat.keypress(function (event) {
         if (event.which === 13) {
@@ -79,12 +80,20 @@ function pageChat() {
 
 function sendMessage(webSocket) {
     var inputChat = $("#inputChat");
-    var pseudo = "Pseudo";
-    var msg = inputChat.val();
-    inputChat.attr("placeholder", "Entrez votre message...");
-    inputChat.val("");
-    webSocket.send(msg);
+    getPseudo(function (pseudo) {
+        var json = '{ "pseudo": "' + pseudo + '", "msg": "' + inputChat.val() + '"}';
+        inputChat.attr("placeholder", "Entrez votre message...");
+        inputChat.val("");
+        webSocket.send(json);
+    });
 }
+
+function getPseudo(callback) {
+    $.get("app", {request: "pseudo"}, function (responseJson) {
+        callback(responseJson.pseudo);
+    });
+}
+
 
 function getDate(date) {
     return addZero(date.getHours()) + ":" + addZero(date.getMinutes()) + ":" + addZero(date.getSeconds());
@@ -96,25 +105,6 @@ function addZero(temp) {
     } else {
         return temp;
     }
-}
-
-function wsAds() {
-    var wsAds = $("#wsAds");
-
-    var webSocket = new WebSocket("ws://localhost:8080/CarInsurance/pub");
-
-    webSocket.onerror = function (event) {
-        console.log("error");
-    };
-    webSocket.onopen = function (event) {
-        console.log("open");
-    };
-    webSocket.onclose = function (event) {
-        console.log("close");
-    };
-    webSocket.onmessage = function (event) {
-        wsAds.text(event.data);
-    };
 }
 
 function listConstructeurModeleVoiture() {

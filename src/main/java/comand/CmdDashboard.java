@@ -11,9 +11,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import tool.DoubleRound;
 import tool.PasswordMD5;
 import webservice.JerseyUtilisateur;
 import webservice.JerseyVoiture;
+import webservice.SOAPClient;
 
 /**
  *
@@ -26,6 +28,7 @@ public class CmdDashboard implements IComand {
         HttpSession session = request.getSession();
         Utilisateur util = (Utilisateur) session.getAttribute("utilisateur");
         Utilisateur utilTemp = (Utilisateur) session.getAttribute("utilisateurTemp");
+        String status = request.getParameter("status");
         
         String url = "WEB-INF/home.jsp";
         String email = request.getParameter("email");
@@ -33,19 +36,21 @@ public class CmdDashboard implements IComand {
 
         JerseyUtilisateur ju = new JerseyUtilisateur();
 
-        if (utilTemp != null) {
+        if (utilTemp != null && email == null) {
             String idVoiture = request.getParameter("selectVoiture");
             if (idVoiture.equals("null")) {
                 request.setAttribute("voitureNull", "Veuillez sélectionner une voiture");
-                return "WEB-INF/voiture.jsp";
+                url = "WEB-INF/voiture.jsp";
             } else {
                 JerseyVoiture jv = new JerseyVoiture();
                 Voiture voiture = jv.find(Voiture.class, idVoiture);
                 utilTemp.setVoiture(voiture);
-
+                double prix = SOAPClient.price(utilTemp.getDateNaissance(), voiture.getAnnee(), voiture.getCarburant(), voiture.getChevaux());
+                utilTemp.setPrix(DoubleRound.round(prix));
+                
                 ju.create(utilTemp);
                 session.removeAttribute("utilisateurTemp");
-                session.setAttribute("utilisateur", utilTemp);
+                session.setAttribute("utilisateur", ju.findByEmail(utilTemp.getEmail()));
                 url = "WEB-INF/dashboard.jsp";
             }
         } else if (util == null) {
@@ -64,6 +69,21 @@ public class CmdDashboard implements IComand {
                 }
             } else {
                 request.setAttribute("connexionErreur", "Veuillez remplir les champs pour vous connecter");
+            }
+        } else if (status != null) {
+            String idVoiture = request.getParameter("selectVoiture");
+            if (idVoiture.equals("null")) {
+                request.setAttribute("voitureNull", "Veuillez sélectionner une voiture");
+                url = "WEB-INF/voiture.jsp";
+            } else {
+                JerseyVoiture jv = new JerseyVoiture();
+                Voiture voiture = jv.find(Voiture.class, idVoiture);
+                util.setVoiture(voiture);
+                double prix = SOAPClient.price(util.getDateNaissance(), voiture.getAnnee(), voiture.getCarburant(), voiture.getChevaux());
+                util.setPrix(DoubleRound.round(prix));
+                ju.edit(util, String.valueOf(util.getId()));
+                session.setAttribute("utilisateur", util);
+                url = "WEB-INF/dashboard.jsp";
             }
         } else {
             url = "WEB-INF/dashboard.jsp";

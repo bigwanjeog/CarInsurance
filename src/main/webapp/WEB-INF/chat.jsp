@@ -1,7 +1,8 @@
 <jsp:include page="header.jsp" />
 
 <div class="jumbotron">
-    <div  class="chat" id="chatDiv">
+    <p>Vous êtes connecté en tant que : <strong>${utilisateur.nom} ${utilisateur.prenom}</strong></p>
+    <div class="chat" id="chatDiv">
         <table class="table table-striped table-hover" id="tableChat">
             <thead>
                 <tr>

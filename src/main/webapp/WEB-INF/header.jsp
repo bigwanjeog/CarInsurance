@@ -43,9 +43,7 @@
                             </ul>
                         </li>
                     </ul>
-                    <c:set var="utilisateur" scope="session" value="${utilisateur}"/>
-                    <c:set var="pageVoiture" scope="request" value="${pageVoiture}"/>
-                    <c:if test="${utilisateur != null && !pageVoiture}">
+                    <c:if test="${utilisateur != null}">
                         <ul class="nav navbar-nav navbar-right">
                             <li> <a href="app?page=logout"><i class="glyphicon glyphicon-log-out"></i> Logout</a> </li>
                         </ul>
