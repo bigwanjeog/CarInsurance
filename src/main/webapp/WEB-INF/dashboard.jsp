@@ -17,7 +17,7 @@
                         <li>Année : <strong>${utilisateur.voiture.annee}</strong></li>
                         <li>Carburant : <strong>${utilisateur.voiture.carburant}</strong></li>
                     </ul>
-                    <a href="app?page=voiture&status=update" class="btn btn-default btn-block">Modifier votre voiture</a>
+                    <a href="voiture?status=update" class="btn btn-default btn-block">Modifier votre voiture</a>
                 </div>
             </div>
         </div>
@@ -36,14 +36,14 @@
                         <li>Date de naissance : <strong>${utilisateur.dateNaissance}</strong></li>
                         <li>Email : <strong>${utilisateur.email}</strong></li>
                     </ul>
-                    <a href="app?page=formulaire&status=update" class="btn btn-default btn-block">Modifier vos informations personnelles</a>
+                    <a href="formulaire?status=update" class="btn btn-default btn-block">Modifier vos informations personnelles</a>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-6 col-lg-offset-3">
-            <a href="app?page=chat" class="btn btn-primary btn-block">Chat</a>
+            <a href="messagerie" class="btn btn-primary btn-block">Chat</a>
         </div>
     </div>
 </div>

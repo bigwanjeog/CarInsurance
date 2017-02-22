@@ -54,6 +54,11 @@
             <artifactId>jersey-media-jaxb</artifactId>
             <version>2.25</version>
         </dependency>
+        <dependency>
+            <groupId>org.tuckey</groupId>
+            <artifactId>urlrewritefilter</artifactId>
+            <version>4.0.3</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -50,7 +50,7 @@ public class CmdDashboard implements IComand {
                 
                 ju.create(utilTemp);
                 session.removeAttribute("utilisateurTemp");
-                session.setAttribute("utilisateur", ju.findByEmail(utilTemp.getEmail()));
+                session.setAttribute("utilisateur", ju.findByEmail(utilTemp.getEmail()).get(0));
                 url = "WEB-INF/dashboard.jsp";
             }
         } else if (util == null) {

@@ -45,7 +45,7 @@
                     </ul>
                     <c:if test="${utilisateur != null}">
                         <ul class="nav navbar-nav navbar-right">
-                            <li> <a href="app?page=logout"><i class="glyphicon glyphicon-log-out"></i> Logout</a> </li>
+                            <li> <a href="logout"><i class="glyphicon glyphicon-log-out"></i> Logout</a> </li>
                         </ul>
                     </c:if>
                 </div>

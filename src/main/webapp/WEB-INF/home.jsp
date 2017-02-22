@@ -12,7 +12,7 @@
                 <h3 class="panel-title">Connexion a Car Insurance</h3>
             </div>
             <div class="panel-body">
-                <form role="form" method="post" action="app?page=dashboard">
+                <form role="form" method="post" action="dashboard">
                     <fieldset>
                         <div class="form-group aligna">
                             <input class="form-control" placeholder="E-mail" name="email" type="email" value="${emailCorrect}" autofocus>
@@ -35,7 +35,7 @@
                             <button type="submit" id="panel" class="btn btn-lg btn-primary btn-block">Login</button>
                         </div>
                         <div class="aligna">
-                            <a href="app?page=formulaire" >Pas encore inscrit ?</a>
+                            <a href="formulaire" >Pas encore inscrit ?</a>
                         </div>
                     </fieldset>
                 </form>

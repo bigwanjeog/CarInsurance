@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+ <!DOCTYPE urlrewrite
+        PUBLIC "-//tuckey.org//DTD UrlRewrite 3.0//EN"
+        "http://www.tuckey.org/res/dtds/urlrewrite3.0.dtd">
+
+<urlrewrite>
+    <rule>
+        <from>/home</from>
+        <to>app?page=home</to>
+    </rule>
+    <rule>
+        <from>/dashboard</from>
+        <to>app?page=dashboard</to>
+    </rule>
+    <rule>
+        <from>/formulaire</from>
+        <to>app?page=formulaire</to>
+    </rule>
+    <rule>
+        <from>/voiture</from>
+        <to>app?page=voiture</to>
+    </rule>
+    <rule>
+        <from>/voiture</from>
+        <to>app?page=voiture</to>
+    </rule>
+    <rule>
+        <from>/logout</from>
+        <to>app?page=logout</to>
+    </rule>
+    <rule>
+        <from>/messagerie</from>
+        <to>app?page=chat</to>
+    </rule>
+</urlrewrite>

@@ -9,8 +9,7 @@ $(document).ready(function () {
     pageFormulaire();
     listConstructeurModeleVoiture();
 
-    var cmd = new URI(window.location.href).search(true).page;
-    if (cmd === "chat") {
+    if (document.getElementById("chatDiv") !== null) {
         pageChat();
     }
 });

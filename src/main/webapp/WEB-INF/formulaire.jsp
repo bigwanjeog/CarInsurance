@@ -16,7 +16,7 @@
     </c:when>
     <c:otherwise>
         <c:set var="labelForm" value="Modification de vos informations personnelles"/>
-        <c:set var="actionForm" value="&status=update"/>
+        <c:set var="actionForm" value="?status=update"/>
         <c:set var="inputNom" value="${utilisateur.nom}"/>
         <c:set var="inputPrenom" value="${utilisateur.prenom}"/>
         <c:set var="inputAdresse" value="${utilisateur.adresse}"/>
@@ -29,7 +29,7 @@
 </c:choose>
 
 <div class="jumbotron">
-    <form data-toggle="validator" role="form" action="app?page=voiture${actionForm}" method="post">
+    <form data-toggle="validator" role="form" action="voiture${actionForm}" method="post">
         <fieldset>
             <legend>${labelForm}</legend>
             <div class="form-group">
@@ -92,7 +92,7 @@
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Envoyer</button>
                 <c:if test="${utilisateur != null}">
-                    <a href="app?page=dashboard"><button type="button" class="btn btn-danger">Annuler</button></a>
+                    <a href="dashboard"><button type="button" class="btn btn-danger">Annuler</button></a>
                 </c:if>
             </div>
         </fieldset>
